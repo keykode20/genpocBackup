@@ -1,0 +1,33 @@
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+    ">
+
+    <bean id="fileSystemFeatureFileReaderImpl" class="co.uk.poc.util.fcodegenerator.impl.FileSystemFeatureFileReaderImpl">
+        <property name="featureFileMapper" ref="featureFileMapper" />
+        <property name="strategy" ref="standardStrategy" />
+    </bean>
+
+    <bean id="standardStrategy" class="co.uk.poc.util.fcodegenerator.impl.FeatureFileMapperPopulatorStandardStrategy" />
+
+    <bean id="featureFileMapper" class="co.uk.poc.util.fcodegenerator.impl.FeatureFileMapper">
+        <property name="map" ref="proxyMap" />
+    </bean>
+
+    <util:map id="proxyMap" key-type="java.lang.String" value-type="java.util.List&lt;java.lang.String&gt;">
+        <entry key="Given" value-ref="given" />
+        <entry key="When" value-ref="when" />
+        <entry key="And" value-ref="and"/>
+        <entry key="Than" value-ref="than"/>
+    </util:map>
+
+    <util:list id="given" value-type="java.lang.String" />
+    <util:list id="when" value-type="java.lang.String" />
+    <util:list id="and" value-type="java.lang.String" />
+    <util:list id="than" value-type="java.lang.String" />
+
+</beans>
